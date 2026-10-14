@@ -10,10 +10,6 @@ UCU, course "Artificial Intelligence", semester project, 2026. Built from
 
 ## Team
 
-| Name | GitHub | Role |
-|---|---|---|
-| Andrii Kulbaba | [@Luzefik](https://github.com/Luzefik) | TODO |
-| Oleksandr Lykhanskyi | TODO | TODO |
 
 ## Problem and motivation
 
@@ -36,23 +32,6 @@ video. Data card, licence terms, split table, checksums: [`data/README.md`](data
 
 ## Approach
 
-```mermaid
-flowchart LR
-    A["HF gated dataset"] --> B["data/raw\ndownload_data.py"]
-    B --> C["frames + YOLO labels\nprepare_data.py"]
-    C --> D["audit\nnotebooks/01"]
-    C --> E["baseline YOLO\n(Colab)"]
-    E --> F["shared evaluator\nzfpv.eval"]
-    G["comparison models\n(DETR-family)"] --> F
-    F --> H["results/metrics + experiments.md"]
-```
-
-1. Audit Z-FPV-v1 (box sizes, day/night, empty frames, split check).
-2. Baseline detector; compare configurations; SAHI for small objects.
-3. Error analysis by category (night, distance, occlusion, blur).
-4. Dataset expansion (OSINT videos, auxiliary datasets).
-5. Retrain and compare with the baseline on the same test videos.
-
 ## Results
 
 TODO: none yet. Every number reported here must come from `results/metrics/*.json`
@@ -62,14 +41,6 @@ TODO: none yet. Every number reported here must come from `results/metrics/*.jso
 
 Local (laptop, CPU: data pipeline, audit, evaluation):
 
-```bash
-git clone https://github.com/Luzefik/storozha-anti-ambush.git && cd storozha-anti-ambush
-make setup                     # .venv + deps + editable install + pre-commit hooks
-source .venv/bin/activate
-hf auth login                  # account must have access to the gated dataset
-make data                      # download/verify -> frames -> YOLO labels
-pytest
-```
 
 Training (Colab GPU): see [`notebooks/README.md`](notebooks/README.md#running-on-colab).
 
@@ -90,27 +61,8 @@ docs/               proposal, poster, slides, CONTRIBUTING.md
 
 ## Reproducibility
 
-- Seed in `config/default.yaml`, applied with `zfpv.utils.set_seed()`.
-- Pinned CPU dependencies in `requirements.txt`; GPU stack in `requirements-train.txt`
-  (pinned after the first successful run).
-- Each metrics JSON stores `zfpv.utils.env_info()`: Python, platform, device, package
-  versions, git commit.
-- Data verified by sha256 (`data/raw/CHECKSUMS.txt`).
-
-## Development
-
-```bash
-flake8 src/ scripts/ tests/ && black --check src/ scripts/ tests/ && isort --check src/ scripts/ tests/
-pytest
-```
-
-Branches, PRs, commit conventions: [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md).
 
 ## AI usage
-
-| Tool | Used for | How the result was checked |
-|---|---|---|
-| Claude | Initial repository scaffold (structure, configs, data card draft, download script, stub modules with TODOs) | TODO: reviewed by ... |
 
 ## Contribution statement
 
