@@ -1,11 +1,12 @@
-# Runtime dependencies, pinned for reproducibility.
-# Regenerate with `pip freeze` inside a fresh venv if you deliberately upgrade something —
-# don't hand-bump a single version without re-testing `make reproduce`.
+# CPU-side runtime dependencies: data download, frame extraction, label conversion,
+# audit, evaluation. Everything here runs on a laptop (no GPU).
+# GPU training dependencies live in requirements-train.txt.
+# Pinned for reproducibility; bump deliberately and re-run the pipeline when you do.
 numpy==2.5.2
 pandas==3.0.5
-scikit-learn==1.9.0
+opencv-python-headless==5.0.0.93
 matplotlib==3.11.1
-joblib==1.5.3
+pillow==12.3.0
 PyYAML==6.0.3
-streamlit==1.61.1
+tqdm==4.70.1
 huggingface_hub==1.27.0

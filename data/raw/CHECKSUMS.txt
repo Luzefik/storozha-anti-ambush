@@ -1,3 +1,43 @@
-# sha256 checksums for files in data/raw/, so reproducibility can be checked
-# without the data itself being committed. Regenerate by rerunning this script.
-cd80158fad3d1e203d61dae42242620b02dd5f918e637b5f08381e39e7cf5204  wine.csv
+# sha256 of files in data/raw/Z-FPV-v1 (videos + label archives), as downloaded from
+# huggingface.co/datasets/ucu-autonomous-ugv/Z-FPV-v1. Regenerate: python scripts/download_data.py --verify
+6ae132b42efe60ebe34812022c503ee2c1520db01d39df0cc817997b0f875e91  Z-FPV-v1/videos/video-10.mp4
+30a46ad5581cf6727e906bc505c39a6b8535948657c4f7dbefbee7a341da97db  Z-FPV-v1/videos/video-11.mp4
+d19ce41ce1ca528ff8deabba2f96e8d554eb3cd33bd34c9a40933455de9739ed  Z-FPV-v1/videos/video-12.mp4
+000bb7d9c67a1bf077d61a21a2506b80a1aff70855733531dbf88d7164062e3c  Z-FPV-v1/videos/video-14.mp4
+2e8361d9af9665c1a8aa1dfe41deb8a2b86b91ca8a0e47e3a5ca52039df12656  Z-FPV-v1/videos/video-15.mp4
+adb5117c8802ccc9277d13d020d1c3120b219c8e5bcd72f2c8a5b7bffd15e2ed  Z-FPV-v1/videos/video-17.mp4
+9f16c75909c57c479329c8e77b4d4dd11346b1b1ffb94b0673855625d6e6162f  Z-FPV-v1/videos/video-18.mp4
+b6b97a7e47abdfed29fe9345185201651952eaffd37a6dcbe4276a331b1d0db0  Z-FPV-v1/videos/video-2.mp4
+7eed84e18a181cce7d02af7e08d287cecd4067022a0d82f6f9652db8ab8e49e0  Z-FPV-v1/videos/video-20.mp4
+1bf4ae98510d03241e0fb65bf0ad407f56fb734b8283fc37e4337b38953d113d  Z-FPV-v1/videos/video-21.mp4
+eb1b984c00a20ee3f5144ed1eb9a67810300894e152f462794e6a3ee8a55f2b2  Z-FPV-v1/videos/video-22.mp4
+7ac97be9d05975a8467d0600863ce81c28064eb79833d7b1483216a492758a2b  Z-FPV-v1/videos/video-23.mp4
+a641492aa2a66a7923f46dd9d34484d415ad5f1b5cb2fd583dd47a84562da7a6  Z-FPV-v1/videos/video-24.mp4
+853c836babc395396eea8731f82ce0036950d3c4d5c3bf154e82708ef8c21492  Z-FPV-v1/videos/video-25.mp4
+244f300575cc3c51070ab1d6c5ed50a38c6f9dba21f85dc5284a19d99195542c  Z-FPV-v1/videos/video-26.mp4
+b8cbba1e5cce6897aacfc38eb7ea4a99c9237d967a40e8bca31fee701658cb4d  Z-FPV-v1/videos/video-3.mp4
+7b947035eec8e6ec51a5ba398ea578aea1981096dd7327f479b78d79bcbaf32d  Z-FPV-v1/videos/video-6.mp4
+15db14524d386faa8455438f549bc48c16a2bca32d7e2e77bcfe398379b3443a  Z-FPV-v1/videos/video-7.mp4
+319ace1a14d00daa50fc73307707b496ee9ddfd0f4b66e9f88581754fc467ec1  Z-FPV-v1/videos/video-8.mp4
+575a5fd1112082092084facf3e23bee79b135901fb7c55e61d49c045b48ca66e  Z-FPV-v1/videos/video-9.mp4
+1314a8f807fc97896099d8c5233bfc070e05ca7b0a1cf604cd06fe33ddde2773  Z-FPV-v1/labels/spie-images.zip
+3d37aea13f60eb985298bb3179e7bfaf1728209ce68d50e9ff7bddbfb71173f4  Z-FPV-v1/labels/spie-video-10.zip
+bfc9c5b0fe74a41c77c56089d370f091a339949578210ff724391b215f2225fa  Z-FPV-v1/labels/spie-video-11.zip
+72532750a6495bd8fddca261821cfb6bb088d68db2cedcc1f34eaf04061e91f6  Z-FPV-v1/labels/spie-video-12.zip
+91218fa07b5aef829a6ac08e95af1fa28c050f735f29f887564afeb32082e46c  Z-FPV-v1/labels/spie-video-14.zip
+df673df8c06651bc54b880f9e05fee8fdb918f38069806a7aad17bc39c39bfef  Z-FPV-v1/labels/spie-video-15.zip
+c07e6a2791863c2f81b5df7ff60a9b66c75245d3776ad291b24aa63f7c64ad5a  Z-FPV-v1/labels/spie-video-17.zip
+7e2373b6d0a407d35efe024bb5bd2bafc2b3652e4f65ad133b5ec10eb6e1ca7a  Z-FPV-v1/labels/spie-video-18.zip
+10f7cd56648b677d37517df9d783662d71eb5fb824cb4e2aa69e195029721371  Z-FPV-v1/labels/spie-video-2.zip
+d509f68567f658a01ee22626286b0666f9a7cb7cecbd70fbd9ff134108f2cc5b  Z-FPV-v1/labels/spie-video-20.zip
+9ba1a84abc836cd484125018b07734d179bdf9659c4e52e70a18f7e721f8eef3  Z-FPV-v1/labels/spie-video-21.zip
+95538170976e1fd3f25a6005050b5e3ad888c992e495bc04e2b8595b3a3c7582  Z-FPV-v1/labels/spie-video-22.zip
+73eb130b318156b8b3b338d629880871f0d86ea8f25a35693f044e828ffc0685  Z-FPV-v1/labels/spie-video-23.zip
+ea6f27ed62b8dbd6273f683cb1b50abecfa8d0ab70c282606c1bf8b2056b562e  Z-FPV-v1/labels/spie-video-24.zip
+4aa6fda1bb095978338dda4c19a6973b31261e1c62a75d8e1763026d224e4535  Z-FPV-v1/labels/spie-video-25.zip
+7e58df4e5f24789bb86cc6db980fcfd3ad9872d19ecc30c8d3ce31d13552f745  Z-FPV-v1/labels/spie-video-26.zip
+4544c401aff4ce24bd3345519676a8a509c95dd750ca8a854a5edf984771e38f  Z-FPV-v1/labels/spie-video-3.zip
+bb302325a8b351ff69559d8228d5629a0d6b0deb600424520f106ccc1af86869  Z-FPV-v1/labels/spie-video-6.zip
+5f7b5341b51d74a57929f332d87b1c60b284bd4692684d1079954c75825eab07  Z-FPV-v1/labels/spie-video-7.zip
+d4e19d4543ab9bb8c9654e0628edf51bc05ce0a87b882a19534f7f31cbf0e11a  Z-FPV-v1/labels/spie-video-8.zip
+aa58be043fd8c6ed426f1be61e081f6c6c520fca61674990deb2030e6329233e  Z-FPV-v1/labels/spie-video-9.zip

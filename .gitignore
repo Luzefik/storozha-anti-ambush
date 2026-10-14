@@ -228,13 +228,17 @@ data/interim/*
 data/processed/*
 !data/processed/.gitkeep
 
-# Models: weights are published to Hugging Face Hub, not committed (see models/README.md)
+# Models: weights are never committed or published (dataset licence, see models/README.md)
 models/*
 !models/.gitkeep
 !models/README.md
 
-# Note: results/metrics.json and results/figures/*.png ARE committed (small, and
+# Note: results/metrics/*.json and results/figures/*.png ARE committed (small, and
 # they're what makes the numbers in README verifiable without rerunning training).
 
 # Env secrets
 .env
+
+# OS / IDE noise
+.DS_Store
+.idea/
