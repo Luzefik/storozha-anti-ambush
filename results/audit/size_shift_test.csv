@@ -1,0 +1,3 @@
+compare,metric,train_videos,other_videos,train_median,other_median,difference,n_permutations,p_two_sided
+train vs val,size_lb_med,12,4,34.8492,8.2029,26.6463,1820,0.1280
+train vs test,size_lb_med,12,4,34.8492,17.8179,17.0313,1820,0.2841
