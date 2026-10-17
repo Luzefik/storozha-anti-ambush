@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "wine-origin"
+name = "zfpv"
 version = "0.1.0"
-description = "Wine cultivar classification example project (course template)"
+description = "Vision-based detection of grounded 'waiter' FPV drones (Z-FPV-v1) from a ground camera"
 requires-python = ">=3.11"
 readme = "README.md"
 license = { text = "MIT" }
@@ -15,7 +15,7 @@ where = ["src"]
 
 [tool.black]
 line-length = 100
-target-version = ["py313"]
+target-version = ["py311"]
 
 [tool.isort]
 profile = "black"

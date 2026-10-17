@@ -1,0 +1,22 @@
+# GPU training / model-comparison dependencies. Install on Colab (or another CUDA
+# machine) ON TOP of requirements.txt:
+#
+#   pip install -r requirements.txt -r requirements-train.txt
+#
+# Colab already ships torch/torchvision built for its CUDA version: do not reinstall
+# them there. Locally on a Mac, torch runs on MPS — fine for smoke tests, not for real
+# training runs.
+#
+# Unpinned on purpose until the first successful baseline run; then pin the exact
+# versions that run used (pip freeze | grep -E "torch|ultralytics|transformers|rfdetr").
+#
+# Licences matter if the model ever ships on the UGV:
+#   ultralytics -> AGPL-3.0, transformers -> Apache-2.0,
+#   rfdetr -> Apache-2.0 for N/S/M/L weights (XL/2XL use a different licence).
+
+torch
+torchvision
+ultralytics
+# Uncomment when you add the transformer-family comparison model(s):
+# transformers
+# rfdetr

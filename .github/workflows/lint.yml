@@ -32,10 +32,10 @@ jobs:
         run: pip install -r requirements-dev.txt
 
       - name: flake8
-        run: flake8 src/ scripts/ tests/ app/
+        run: flake8 src/ scripts/ tests/
 
       - name: black --check
-        run: black --check src/ scripts/ tests/ app/
+        run: black --check src/ scripts/ tests/
 
       - name: isort --check
-        run: isort --check src/ scripts/ tests/ app/
+        run: isort --check src/ scripts/ tests/

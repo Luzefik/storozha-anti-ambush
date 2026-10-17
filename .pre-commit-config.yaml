@@ -32,12 +32,12 @@ repos:
     hooks:
       - id: flake8
 
-  # Strips notebook outputs before commit. DISABLED by default: this course's convention
-  # (see notebooks/README.md) is to commit notebooks WITH their outputs, so reviewers can
-  # see plots/tables on GitHub without re-running anything. Enable this hook only if your
-  # team decides outputs cause more merge-conflict pain than they're worth — uncomment the
-  # block below and run `pre-commit install` again.
-  # - repo: https://github.com/kynan/nbstripout
-  #   rev: 0.9.1
-  #   hooks:
-  #     - id: nbstripout
+  # Strips notebook outputs before commit. ENABLED: with two people editing the same
+  # notebooks from both desktop and Colab, output-cell diffs turn into merge-conflict
+  # noise fast. If you'd rather keep outputs in git so reviewers see plots on GitHub
+  # without re-running anything, comment this back out and run `pre-commit install`
+  # again — it's a team call, not a fixed rule.
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.9.1
+    hooks:
+      - id: nbstripout

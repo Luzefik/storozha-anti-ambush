@@ -1,11 +1,15 @@
 #!/usr/bin/env python
-"""Materialize the wine dataset to data/raw/wine.csv and record its checksum.
+"""Download the gated Z-FPV-v1 dataset from Hugging Face and/or verify its checksums.
 
-Idempotent: if the CSV already exists and its sha256 matches what's on record in
-data/raw/CHECKSUMS.txt, nothing is re-downloaded or re-written. That file IS committed
-to git (unlike the data itself) — it's how reproducibility gets checked without the
-raw data ever being in version control: anyone can regenerate the CSV and confirm the
-checksum matches.
+Access must have been granted to your HF account first (the dataset is gated and
+reviewed manually). Authenticate with `hf auth login` once, or set HF_TOKEN.
+
+    python scripts/download_data.py             # download (skips files already there)
+    python scripts/download_data.py --verify    # only compare sha256 with CHECKSUMS.txt
+
+data/raw/ is gitignored: the dataset licence (research-use-only) forbids redistributing
+the data or derivatives that allow reconstructing the frames. Only CHECKSUMS.txt is
+committed.
 """
 
 from __future__ import annotations
@@ -13,62 +17,75 @@ from __future__ import annotations
 import argparse
 import hashlib
 import logging
+import os
+import sys
 from pathlib import Path
 
-from wine_origin.data import materialize_raw_csv
+from zfpv.config import load_config
 
 logger = logging.getLogger(__name__)
 
-RAW_CSV = Path("data/raw/wine.csv")
-CHECKSUMS_FILE = Path("data/raw/CHECKSUMS.txt")
+
+def sha256_of(path: Path, chunk: int = 1 << 20) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as f:
+        while block := f.read(chunk):
+            digest.update(block)
+    return digest.hexdigest()
 
 
-def sha256_of(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def read_recorded_checksum(checksums_file: Path, filename: str) -> str | None:
-    if not checksums_file.exists():
-        return None
-    for line in checksums_file.read_text().splitlines():
+def read_checksums(path: Path) -> dict[str, str]:
+    recorded = {}
+    for line in path.read_text().splitlines():
         line = line.strip()
         if not line or line.startswith("#"):
             continue
-        digest, recorded_name = line.split(maxsplit=1)
-        if recorded_name == filename:
-            return digest
-    return None
+        digest, name = line.split(maxsplit=1)
+        recorded[name] = digest
+    return recorded
 
 
-def write_checksum(checksums_file: Path, filename: str, digest: str) -> None:
-    checksums_file.parent.mkdir(parents=True, exist_ok=True)
-    checksums_file.write_text(
-        "# sha256 checksums for files in data/raw/, so reproducibility can be checked\n"
-        "# without the data itself being committed. Regenerate by rerunning this "
-        "script.\n"
-        f"{digest}  {filename}\n"
+def verify(raw_root: Path, checksums: Path) -> bool:
+    """raw_root is data/raw; names in CHECKSUMS.txt are relative to it."""
+    ok = True
+    for name, expected in read_checksums(checksums).items():
+        path = raw_root / name
+        if not path.exists():
+            logger.error("missing: %s", name)
+            ok = False
+        elif sha256_of(path) != expected:
+            logger.error("checksum mismatch: %s", name)
+            ok = False
+    logger.info("checksums %s", "OK" if ok else "FAILED")
+    return ok
+
+
+def download(repo_id: str, raw_dir: Path) -> None:
+    from huggingface_hub import snapshot_download
+
+    snapshot_download(
+        repo_id=repo_id,
+        repo_type="dataset",
+        local_dir=raw_dir,
+        token=os.environ.get("HF_TOKEN") or None,  # None -> cached `hf auth login` token
     )
+    logger.info("downloaded %s -> %s", repo_id, raw_dir)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--force", action="store_true", help="Re-materialize even if checksums already match"
-    )
+    parser.add_argument("--verify", action="store_true", help="only verify checksums")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(message)s")
 
-    recorded = read_recorded_checksum(CHECKSUMS_FILE, RAW_CSV.name)
-    if not args.force and RAW_CSV.exists() and recorded is not None:
-        if sha256_of(RAW_CSV) == recorded:
-            logger.info("%s already up to date (sha256 matches CHECKSUMS.txt), skipping", RAW_CSV)
-            return
-        logger.warning("%s exists but checksum doesn't match — re-materializing", RAW_CSV)
+    cfg = load_config()
+    raw_dir = Path(cfg["paths"]["raw_dir"])
+    checksums = Path(cfg["paths"]["checksums"])
 
-    materialize_raw_csv(RAW_CSV)
-    digest = sha256_of(RAW_CSV)
-    write_checksum(CHECKSUMS_FILE, RAW_CSV.name, digest)
-    logger.info("Wrote %s (sha256 %s)", RAW_CSV, digest)
+    if not args.verify:
+        download(cfg["dataset"]["hf_repo_id"], raw_dir)
+    if not verify(raw_dir.parent, checksums):
+        sys.exit(1)
 
 
 if __name__ == "__main__":
