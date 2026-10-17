@@ -35,13 +35,11 @@ eval:
   max_detections: 100
 
 baseline:
-  # TODO(team): the exact baseline row — fill in BEFORE training, then don't touch.
-  model: null          # e.g. family + size
-  # Audit (results/audit/per_split.csv): at 640 the median val box is ~8 px, one cell of
-  # YOLO's finest (stride-8) grid. Consider 1280 (~4x compute) or SAHI tiles.
-  imgsz: null
-  pretrained: null
-  epochs: null
-
+    weights: yolo11s.pt
+    imgsz: 640
+    epochs: 100
+    patience: 20
+    batch: 16
+    seed: 42
 logging:
   level: INFO
