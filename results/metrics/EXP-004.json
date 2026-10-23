@@ -1,0 +1,141 @@
+{
+  "experiment": "EXP-004",
+  "title": "YOLO11s, imgsz 640, 4-fold CV by video (train+val pool, test untouched)",
+  "n_independent_runs": 4,
+  "runs": [
+    "cv-yolo11s-640/fold0",
+    "cv-yolo11s-640/fold1",
+    "cv-yolo11s-640/fold2",
+    "cv-yolo11s-640/fold3"
+  ],
+  "metrics": {
+    "best_mAP50": {
+      "mean": 0.5213,
+      "std": 0.1496,
+      "values": [
+        0.4505,
+        0.7327,
+        0.5736,
+        0.3286
+      ]
+    },
+    "best_mAP50_95": {
+      "mean": 0.2964,
+      "std": 0.075,
+      "values": [
+        0.209,
+        0.39,
+        0.3485,
+        0.238
+      ]
+    },
+    "best_recall": {
+      "mean": 0.5053,
+      "std": 0.1355,
+      "values": [
+        0.4487,
+        0.6423,
+        0.6203,
+        0.3098
+      ]
+    },
+    "last10_mAP50": {
+      "mean": 0.325,
+      "std": 0.0791,
+      "values": [
+        0.2518,
+        0.4063,
+        0.4016,
+        0.2402
+      ]
+    },
+    "last10_mAP50_95": {
+      "mean": 0.1888,
+      "std": 0.0485,
+      "values": [
+        0.1155,
+        0.2371,
+        0.2278,
+        0.1749
+      ]
+    },
+    "last10_recall": {
+      "mean": 0.3299,
+      "std": 0.0649,
+      "values": [
+        0.2734,
+        0.3736,
+        0.4126,
+        0.2601
+      ]
+    },
+    "min_per_epoch": {
+      "mean": 0.9339,
+      "std": 0.0496,
+      "values": [
+        0.9736,
+        0.9799,
+        0.8557,
+        0.9266
+      ]
+    }
+  },
+  "evaluator": "ultralytics val (provisional: the shared evaluator zfpv.eval.metrics is not implemented yet)",
+  "eval_split": "per-fold val (4 videos each)",
+  "git_commit": "20e0cf6",
+  "notes": "",
+  "folds": [
+    {
+      "fold": 0,
+      "val_videos": [
+        "video-25",
+        "video-18",
+        "video-6",
+        "video-20"
+      ],
+      "best_mAP50": 0.4505,
+      "best_recall": 0.4487,
+      "last10_mAP50": 0.2518,
+      "last10_recall": 0.2734
+    },
+    {
+      "fold": 1,
+      "val_videos": [
+        "video-8",
+        "video-9",
+        "video-3",
+        "video-22"
+      ],
+      "best_mAP50": 0.7327,
+      "best_recall": 0.6423,
+      "last10_mAP50": 0.4063,
+      "last10_recall": 0.3736
+    },
+    {
+      "fold": 2,
+      "val_videos": [
+        "video-2",
+        "video-21",
+        "video-17",
+        "video-12"
+      ],
+      "best_mAP50": 0.5736,
+      "best_recall": 0.6203,
+      "last10_mAP50": 0.4016,
+      "last10_recall": 0.4126
+    },
+    {
+      "fold": 3,
+      "val_videos": [
+        "video-15",
+        "video-26",
+        "video-7",
+        "video-11"
+      ],
+      "best_mAP50": 0.3286,
+      "best_recall": 0.3098,
+      "last10_mAP50": 0.2402,
+      "last10_recall": 0.2601
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+| experiment | config | runs | best_mAP50 | last10_mAP50 | last10_mAP50_95 | best_recall | min_per_epoch |
+|---|---|---|---|---|---|---|---|
+| EXP-001 | YOLO26n, imgsz 640 (baseline) | 3 | 0.50 ± 0.04 | 0.16 ± 0.06 | 0.06 ± 0.03 | 0.50 ± 0.03 | 1.9 |
+| EXP-002 | RT-DETR-l, imgsz 640 | 2 | 0.48 ± 0.02 | 0.22 ± 0.01 | 0.09 ± 0.00 | 0.48 ± 0.01 | 10.6 |
+| EXP-003 | YOLO26n, imgsz 1280 | 3 | 0.51 ± 0.06 | 0.24 ± 0.03 | 0.10 ± 0.02 | 0.46 ± 0.06 | 2.9 |
+| EXP-004 | YOLO11s, imgsz 640, 4-fold CV by video (train+val pool, test untouched) | 4 | 0.52 ± 0.15 | 0.33 ± 0.08 | 0.19 ± 0.05 | 0.51 ± 0.14 | 0.9 |

@@ -1,0 +1,21 @@
+experiment,run,status,duplicate_of,model,imgsz,batch,scale,epochs_run,best_epoch,best_mAP50,best_mAP50_95,best_precision,best_recall,max_mAP50,last10_mAP50,last10_mAP50_95,last10_recall,min_per_epoch,cache,seed,data
+EXP-002,rtdetr-l-640,finished (early stop),,rtdetr-l.pt,640,8,0.5,24.0,4.0,0.4639,0.2064,0.5523,0.4889,0.4639,0.2087,0.0866,0.2778,10.5967,False,42,data/processed/yolo/data.yaml
+EXP-002,rtdetr-l-640-2,failed (no results.csv),,rtdetr-l.pt,640,8,0.5,,,,,,,,,,,,False,42,data/processed/yolo/data.yaml
+EXP-002,rtdetr-l-640-3,failed (no results.csv),,rtdetr-l.pt,640,8,0.5,,,,,,,,,,,,False,42,data/processed/yolo/data.yaml
+EXP-002,rtdetr-l-640-4,finished (early stop),,rtdetr-l.pt,640,8,0.5,24.0,4.0,0.4963,0.256,0.8012,0.4618,0.5011,0.222,0.0914,0.3303,10.5892,False,42,data/processed/yolo/data.yaml
+EXP-003,yolo26n-1280,interrupted,yolo26n-1280-3,yolo26n.pt,1280,-1,0.5,16.0,15.0,0.431,0.205,0.7489,0.3959,0.4611,0.2465,0.1087,0.3066,4.0553,disk,42,data/processed/yolo/data.yaml
+EXP-003,yolo26n-1280-2,interrupted,yolo26n-1280-3,yolo26n.pt,1280,-1,0.5,4.0,1.0,0.4611,0.1977,0.4769,0.4443,0.4611,0.3229,0.137,0.3103,4.1326,disk,42,data/processed/yolo/data.yaml
+EXP-003,yolo26n-1280-3,finished (early stop),,yolo26n.pt,1280,-1,0.5,35.0,15.0,0.431,0.205,0.7489,0.3959,0.4644,0.2022,0.077,0.3052,2.9146,disk,42,data/processed/yolo/data.yaml
+EXP-003,yolo26n-1280-4,finished (early stop),yolo26n-1280-3,yolo26n.pt,1280,-1,0.5,35.0,15.0,0.431,0.205,0.7489,0.3959,0.4644,0.2022,0.077,0.3052,2.9081,disk,42,data/processed/yolo/data.yaml
+EXP-003,yolo26n-1280-5,interrupted,yolo26n-1280-7,yolo26n.pt,1280,-1,0.5,4.0,1.0,0.5888,0.2735,0.6517,0.5402,0.5888,0.4749,0.2173,0.4573,2.8175,disk,42,data/processed/yolo/data.yaml
+EXP-003,yolo26n-1280-6,finished (early stop),,yolo26n.pt,1280,-1,0.5,29.0,9.0,0.5063,0.2674,0.7113,0.4434,0.5457,0.2751,0.1188,0.376,3.1462,disk,42,data/processed/yolo/data.yaml
+EXP-003,yolo26n-1280-7,finished (early stop),,yolo26n.pt,1280,-1,0.5,21.0,1.0,0.5888,0.2735,0.6517,0.5402,0.5888,0.2301,0.1041,0.2483,2.646,disk,42,data/processed/yolo/data.yaml
+EXP-003,yolo26n-1280-8,finished (early stop),yolo26n-1280-3,yolo26n.pt,1280,-1,0.5,35.0,15.0,0.431,0.205,0.7489,0.3959,0.4644,0.2022,0.077,0.3052,3.7302,disk,42,data/processed/yolo/data.yaml
+EXP-001,yolo26n-640,finished (early stop),,yolo26n.pt,640,-1,0.5,25.0,5.0,0.4549,0.1758,0.6496,0.4821,0.4549,0.1243,0.0399,0.2805,2.2233,ram,42,data/processed/yolo/data.yaml
+EXP-001,yolo26n-640-2,finished (early stop),,yolo26n.pt,640,-1,0.5,25.0,5.0,0.4823,0.2093,0.6656,0.4879,0.5079,0.1158,0.0392,0.204,1.4772,ram,42,data/processed/yolo/data.yaml
+EXP-001,yolo26n-640-3,failed (no results.csv),,yolo26n.pt,640,-1,0.5,,,,,,,,,,,,ram,42,data/processed/yolo/data.yaml
+EXP-001,yolo26n-640-4,finished (early stop),,yolo26n.pt,640,-1,0.5,27.0,7.0,0.5566,0.2336,0.705,0.5382,0.5566,0.2484,0.1027,0.3835,2.1272,ram,42,data/processed/yolo/data.yaml
+EXP-004,cv-yolo11s-640/fold0,finished (early stop),,yolo11s.pt,640,-1,0.5,32.0,17.0,0.4505,0.209,0.5997,0.4487,0.4505,0.2518,0.1155,0.2734,0.9736,ram,42,data/processed/yolo/fold0.yaml
+EXP-004,cv-yolo11s-640/fold1,finished (early stop),,yolo11s.pt,640,-1,0.5,20.0,5.0,0.7327,0.39,0.798,0.6423,0.7327,0.4063,0.2371,0.3736,0.9799,ram,42,data/processed/yolo/fold1.yaml
+EXP-004,cv-yolo11s-640/fold2,finished (early stop),,yolo11s.pt,640,-1,0.5,19.0,4.0,0.5736,0.3485,0.6134,0.6203,0.5736,0.4016,0.2278,0.4126,0.8557,ram,42,data/processed/yolo/fold2.yaml
+EXP-004,cv-yolo11s-640/fold3,finished (early stop),,yolo11s.pt,640,-1,0.5,31.0,16.0,0.3286,0.238,0.8288,0.3098,0.3601,0.2402,0.1749,0.2601,0.9266,ram,42,data/processed/yolo/fold3.yaml

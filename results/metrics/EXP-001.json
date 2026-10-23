@@ -1,0 +1,79 @@
+{
+  "experiment": "EXP-001",
+  "title": "YOLO26n, imgsz 640 (baseline)",
+  "n_independent_runs": 3,
+  "runs": [
+    "yolo26n-640",
+    "yolo26n-640-2",
+    "yolo26n-640-4"
+  ],
+  "metrics": {
+    "best_mAP50": {
+      "mean": 0.4979,
+      "std": 0.043,
+      "values": [
+        0.4549,
+        0.4823,
+        0.5566
+      ]
+    },
+    "best_mAP50_95": {
+      "mean": 0.2062,
+      "std": 0.0237,
+      "values": [
+        0.1758,
+        0.2093,
+        0.2336
+      ]
+    },
+    "best_recall": {
+      "mean": 0.5027,
+      "std": 0.0252,
+      "values": [
+        0.4821,
+        0.4879,
+        0.5382
+      ]
+    },
+    "last10_mAP50": {
+      "mean": 0.1629,
+      "std": 0.0606,
+      "values": [
+        0.1243,
+        0.1158,
+        0.2484
+      ]
+    },
+    "last10_mAP50_95": {
+      "mean": 0.0606,
+      "std": 0.0298,
+      "values": [
+        0.0399,
+        0.0392,
+        0.1027
+      ]
+    },
+    "last10_recall": {
+      "mean": 0.2893,
+      "std": 0.0736,
+      "values": [
+        0.2805,
+        0.204,
+        0.3835
+      ]
+    },
+    "min_per_epoch": {
+      "mean": 1.9426,
+      "std": 0.3314,
+      "values": [
+        2.2233,
+        1.4772,
+        2.1272
+      ]
+    }
+  },
+  "evaluator": "ultralytics val (provisional: the shared evaluator zfpv.eval.metrics is not implemented yet)",
+  "eval_split": "val split from config/splits (4 videos)",
+  "git_commit": "20e0cf6",
+  "notes": ""
+}

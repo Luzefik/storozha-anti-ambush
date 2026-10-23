@@ -1,0 +1,5 @@
+run,val_videos,epochs_run,best_epoch,best_mAP50,best_recall,last10_mAP50,last10_recall
+cv-yolo11s-640/fold0,"video-25, video-18, video-6, video-20",32.0,17.0,0.4505,0.4487,0.2518,0.2734
+cv-yolo11s-640/fold1,"video-8, video-9, video-3, video-22",20.0,5.0,0.7327,0.6423,0.4063,0.3736
+cv-yolo11s-640/fold2,"video-2, video-21, video-17, video-12",19.0,4.0,0.5736,0.6203,0.4016,0.4126
+cv-yolo11s-640/fold3,"video-15, video-26, video-7, video-11",31.0,16.0,0.3286,0.3098,0.2402,0.2601

@@ -1,0 +1,71 @@
+{
+  "experiment": "EXP-002",
+  "title": "RT-DETR-l, imgsz 640",
+  "n_independent_runs": 2,
+  "runs": [
+    "rtdetr-l-640",
+    "rtdetr-l-640-4"
+  ],
+  "metrics": {
+    "best_mAP50": {
+      "mean": 0.4801,
+      "std": 0.0162,
+      "values": [
+        0.4639,
+        0.4963
+      ]
+    },
+    "best_mAP50_95": {
+      "mean": 0.2312,
+      "std": 0.0248,
+      "values": [
+        0.2064,
+        0.256
+      ]
+    },
+    "best_recall": {
+      "mean": 0.4753,
+      "std": 0.0136,
+      "values": [
+        0.4889,
+        0.4618
+      ]
+    },
+    "last10_mAP50": {
+      "mean": 0.2153,
+      "std": 0.0067,
+      "values": [
+        0.2087,
+        0.222
+      ]
+    },
+    "last10_mAP50_95": {
+      "mean": 0.089,
+      "std": 0.0024,
+      "values": [
+        0.0866,
+        0.0914
+      ]
+    },
+    "last10_recall": {
+      "mean": 0.3041,
+      "std": 0.0263,
+      "values": [
+        0.2778,
+        0.3303
+      ]
+    },
+    "min_per_epoch": {
+      "mean": 10.5929,
+      "std": 0.0038,
+      "values": [
+        10.5967,
+        10.5892
+      ]
+    }
+  },
+  "evaluator": "ultralytics val (provisional: the shared evaluator zfpv.eval.metrics is not implemented yet)",
+  "eval_split": "val split from config/splits (4 videos)",
+  "git_commit": "20e0cf6",
+  "notes": ""
+}

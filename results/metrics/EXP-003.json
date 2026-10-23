@@ -1,0 +1,79 @@
+{
+  "experiment": "EXP-003",
+  "title": "YOLO26n, imgsz 1280",
+  "n_independent_runs": 3,
+  "runs": [
+    "yolo26n-1280-3",
+    "yolo26n-1280-6",
+    "yolo26n-1280-7"
+  ],
+  "metrics": {
+    "best_mAP50": {
+      "mean": 0.5087,
+      "std": 0.0644,
+      "values": [
+        0.431,
+        0.5063,
+        0.5888
+      ]
+    },
+    "best_mAP50_95": {
+      "mean": 0.2486,
+      "std": 0.031,
+      "values": [
+        0.205,
+        0.2674,
+        0.2735
+      ]
+    },
+    "best_recall": {
+      "mean": 0.4598,
+      "std": 0.06,
+      "values": [
+        0.3959,
+        0.4434,
+        0.5402
+      ]
+    },
+    "last10_mAP50": {
+      "mean": 0.2358,
+      "std": 0.03,
+      "values": [
+        0.2022,
+        0.2751,
+        0.2301
+      ]
+    },
+    "last10_mAP50_95": {
+      "mean": 0.0999,
+      "std": 0.0173,
+      "values": [
+        0.077,
+        0.1188,
+        0.1041
+      ]
+    },
+    "last10_recall": {
+      "mean": 0.3098,
+      "std": 0.0523,
+      "values": [
+        0.3052,
+        0.376,
+        0.2483
+      ]
+    },
+    "min_per_epoch": {
+      "mean": 2.9023,
+      "std": 0.2044,
+      "values": [
+        2.9146,
+        3.1462,
+        2.646
+      ]
+    }
+  },
+  "evaluator": "ultralytics val (provisional: the shared evaluator zfpv.eval.metrics is not implemented yet)",
+  "eval_split": "val split from config/splits (4 videos)",
+  "git_commit": "20e0cf6",
+  "notes": "yolo26n-1280{,-2,-4,-8} reproduce yolo26n-1280-3 epoch by epoch (seed 42, deterministic) and -5 reproduces -7; counted once."
+}
