@@ -1,39 +1,45 @@
-# All the numbers and paths a run needs, in one place — nothing below should be
-# hardcoded in src/. Override any key from the CLI, e.g.:
-#   python -m wine_origin train --override model.random_forest.n_estimators=300
+# Every path, number and seed a run needs, in one place: nothing below should be
+# hardcoded in src/. Override from the CLI with dotted keys, e.g.
+#   python scripts/prepare_data.py --override frames.ext=jpg
 
 seed: 42
 
+dataset:
+  hf_repo_id: ucu-autonomous-ugv/Z-FPV-v1   # gated: request access on Hugging Face first
+  class_names: [waiter_fpv_drone]           # YOLO class 0; COCO category_id 1 ("drone")
+
 paths:
-  raw_data: data/raw/wine.csv
+  raw_dir: data/raw/Z-FPV-v1                # videos/*.mp4 + labels/spie-video-*.zip (COCO JSON)
   checksums: data/raw/CHECKSUMS.txt
-  model: models/model.joblib
-  metrics: results/metrics.json
-  confusion_matrix: results/figures/confusion_matrix.png
+  split_manifest: config/splits/video_split_manifest.csv   # tracked in git: the split IS config
+  frames_dir: data/interim/frames           # frames_dir/<video>/frame_000000.png
+  yolo_dir: data/processed/yolo             # model-ready images/labels, laid out per split
+  results_dir: results
   experiments_log: results/experiments.md
 
+frames:
+  # Frame names must match the COCO `file_name`s exactly (frame_000000.png, ...).
+  # PNG is lossless (~5 GB for all frames at compression level 1); JPEG is ~5-10x smaller but adds a second
+  # round of compression artifacts on top of the video codec. Team decision.
+  ext: png
+
 split:
-  test_size: 0.2
-  stratify: true
+  unit: video          # never split by frame: adjacent frames are near-duplicates (leakage)
+  names: [train, val, test]
 
-cv:
-  n_splits: 5
+eval:
+  # Shared evaluator settings, identical for every model in the comparison.
+  # TODO(team): fix these before the first baseline run and do not change them afterwards.
+  iou_thresholds: [0.5, 0.75]
+  conf_threshold: null   # null = keep all predictions for mAP; set explicitly for P/R reporting
+  max_detections: 100
 
-model:
-  # Which model `train`/`predict` use by default. "logistic_regression" is the
-  # best-performing of the models we compared — see results/experiments.md.
-  active: logistic_regression
-  logistic_regression:
-    max_iter: 1000
-    C: 1.0
-  random_forest:
-    n_estimators: 200
-    max_depth: null
-
+baseline:
+    weights: yolo11s.pt
+    imgsz: 640
+    epochs: 100
+    patience: 20
+    batch: 16
+    seed: 42
 logging:
   level: INFO
-
-# Only used if you publish the model to Hugging Face Hub (see models/README.md).
-# Leave repo_id blank to disable the HF fallback in load_model().
-huggingface:
-  repo_id: ""

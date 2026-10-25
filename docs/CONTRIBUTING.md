@@ -42,11 +42,11 @@ macro-F1 0.94 -> 0.96, CV std 0.02. Details: results/experiments.md
 
 | Before | After |
 |---|---|
-| `update` | `fix: handle empty test split when a class has <5 samples` |
-| `fix bug` | `fix: stratify train/test split so rare classes aren't dropped entirely` |
-| `asdf` | `chore: remove unused import in evaluate.py` |
-| `final version FINAL` | `docs: fill in results table with run_experiment.py output` |
-| `changes` | `refactor: move confusion-matrix plotting out of cli.py into evaluate.py` |
+| `update` | `fix: clip COCO boxes that extend past the frame edge` |
+| `fix bug` | `fix: read frames sequentially so labels stay aligned with CVAT frame ids` |
+| `asdf` | `chore: remove unused import in metrics.py` |
+| `final version FINAL` | `docs: fill in results table from results/metrics/*.json` |
+| `changes` | `refactor: move box back-mapping into the YOLO adapter` |
 
 ## Authorship
 

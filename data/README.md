@@ -1,145 +1,111 @@
 # data/ — data card
 
-> **Why this matters:** deciding a dataset's license and provenance *before* you start
-> building is a lot cheaper than discovering after your final report is written that
-> you're not actually allowed to redistribute it, or that you can't say where it came
-> from. Fill this file in as one of the first things you do, not the last.
-
 ## Name and source
 
-**UCI Wine Recognition Data**, accessed via `sklearn.datasets.load_wine`. Originally
-donated to the UCI Machine Learning Repository in 1991 by Forina, M. et al.,
-Institute of Pharmaceutical and Food Analysis and Technologies (Genoa, Italy). Results
-of a chemical analysis of wines grown in the same region of Italy, from three
-different cultivars.
+**Z-FPV-v1**, UCU Autonomous UGV Club, 2026.
+<https://huggingface.co/datasets/ucu-autonomous-ugv/Z-FPV-v1> (gated).
 
-- UCI page: <https://archive.ics.uci.edu/dataset/109/wine>
-- Bundled directly in scikit-learn — no external download needed, see "How to get it" below.
+Grounded "waiter" (ambush) FPV drones seen from a ground / UGV viewpoint: a motionless,
+often camouflaged target on the ground, frequently at night or in low light. Assembled
+from publicly available footage reposted on social media (OSINT).
 
 ## License and terms of use
 
-No explicit license file accompanies the original 1991 UCI submission (it predates
-standard dataset-licensing practice). scikit-learn redistributes it as one of its
-built-in "toy datasets" for examples and teaching. Treat it as free to use for
-research and educational purposes; if you use it in a report or publication, cite
-the original source (see below) rather than just "scikit-learn". There are no known
-commercial-use restrictions, but because there's no formal license grant, avoid
-presenting it as your own collected data in anything beyond a course project context.
+**Research-use-only, gated.** Access is reviewed manually by the dataset authors. By
+requesting access we agreed to:
 
-**Citation**, if you need one:
+1. use the data only for non-commercial academic research;
+2. not redistribute the data or any derivative that allows reconstruction of the
+   source frames;
+3. not use it to develop or improve offensive or targeting systems;
+4. cite the accompanying paper (citation: TBA by the authors).
 
-> Forina, M. et al. (1991). *PARVUS — An Extendible Package for Data Exploration,
-> Classification and Correlation*. Institute of Pharmaceutical and Food Analysis and
-> Technologies, Via Brigata Salerno, 16147 Genoa, Italy.
+Consequences for this repo: no frames, crops, or images with drawn boxes are ever
+committed or posted publicly; trained weights stay private; Colab/Drive copies stay in
+private, unshared storage. This repo's MIT licence covers the code only.
 
 ## Size and format
 
-- 178 samples, 13 numeric features, 3 classes (cultivars)
-- One CSV file, `data/raw/wine.csv`, ~11 KB
-- No train/test files on disk — the split is generated at runtime from a fixed seed (see "Splits" below), so there's only ever one raw file to keep in sync
+| | |
+|---|---|
+| Videos | 20 (`videos/video-*.mp4`, H.264) |
+| Frames | 7196 total, 6469 with a box, 727 (10.1%) without |
+| Classes | 1: COCO `category_id 1 "drone"` -> YOLO class 0 `waiter_fpv_drone` |
+| Labels | one COCO file per video: `labels/spie-video-N.zip -> annotations/instances_default.json`, bbox `[x, y, w, h]` in absolute px |
+| Extra | `labels/spie-images.zip` + `images/photo-*.{jpg,png,webp}`: 10 still photos, not part of the video split (status: TODO decide) |
 
-## Schema
+Annotation (from the dataset card): tight 2D boxes in CVAT; key frames labelled by hand,
+TransT tracker propagated boxes, propagated labels manually corrected; every annotation
+reviewed by the authors. COCO `attributes` also carry `occluded`, `track_id`, `keyframe`.
 
-| Column | Type | Description | Units |
-|---|---|---|---|
-| `alcohol` | float | Alcohol content | % vol |
-| `malic_acid` | float | Malic acid | g/L |
-| `ash` | float | Ash | g/L |
-| `alcalinity_of_ash` | float | Alkalinity of ash | — |
-| `magnesium` | float | Magnesium | mg/L |
-| `total_phenols` | float | Total phenols | — |
-| `flavanoids` | float | Flavanoids | — |
-| `nonflavanoid_phenols` | float | Non-flavanoid phenols | — |
-| `proanthocyanins` | float | Proanthocyanins | g/L |
-| `color_intensity` | float | Color intensity | — |
-| `hue` | float | Hue | — |
-| `od280/od315_of_diluted_wines` | float | OD280/OD315 of diluted wines (protein content proxy) | — |
-| `proline` | float | Proline | mg/L |
-| `target` | int | Cultivar: `0`, `1`, or `2` | — |
+**Videos are not uniform** (from `ffprobe`): most are 1280×720, but `video-10` is
+960×720, `video-23` is 1920×1080, and `video-2` is **portrait 576×1024** (and alone
+holds 1451 frames, 20% of the dataset). Frame rates are 24–30 fps. Every video's frame
+count matches its row in the manifest.
 
-## `data/raw/` vs. `data/interim/` vs. `data/processed/`
+## raw / interim / processed
 
-This project's pipeline is simple enough to go straight from `data/raw/wine.csv` to
-features in memory (see `src/wine_origin/features.py`) — so `data/interim/` and
-`data/processed/` are currently empty (just a `.gitkeep` each, so the folders exist
-after a fresh clone). If your project adds a real multi-step pipeline — e.g.
-cleaning/joining raw sources into an intermediate form, then engineering features from
-that — `data/interim/` is where the intermediate, not-yet-final form goes, and
-`data/processed/` is where the model-ready output goes. Same rule as `data/raw/`:
-never commit the files themselves, only document what's in them here.
+- `data/raw/Z-FPV-v1/` — as downloaded, never modified. `scripts/download_data.py`.
+- `data/interim/frames/<video>/frame_000000.png` — every decoded frame, names matching
+  the COCO `file_name`s. `scripts/prepare_data.py`.
+- `data/processed/yolo/` — YOLO labels (`labels/<video>/`), per-video symlinks to the
+  frames (`images/<video>`), `train.txt` / `val.txt` / `test.txt` and `data.yaml`.
+  `data.yaml` has no `path:` key, so Ultralytics uses its own folder as the dataset root:
+  it works on any machine. It is still generated, not committed: run
+  `scripts/prepare_data.py` on every machine (laptop, Colab).
 
-## How to get it
-
-```bash
-python scripts/download_data.py
-```
-
-This materializes `sklearn`'s built-in dataset to
-`data/raw/wine.csv` and writes its sha256 to `data/raw/CHECKSUMS.txt`. It's idempotent
-— if the checksum already matches, it does nothing on a re-run.
+All three are gitignored. `data/raw/CHECKSUMS.txt` (sha256 of every video and label
+archive) is committed: `python scripts/download_data.py --verify`.
 
 ## Splits
 
-Stratified 80/20 train/test split, `random_state=42` (see `config/default.yaml`'s
-`seed` and `split` keys), computed at runtime in `wine_origin.data.train_test_split_stratified`
-— not stored as separate files, so there's exactly one raw file to keep an eye on. No
-overlap between train and test is verified by `tests/test_data.py`.
+**By video, never by frame** (adjacent frames are near-duplicates: a frame split leaks
+the test set into training). The assignment lives in
+`config/splits/video_split_manifest.csv` and is checked by `tests/test_split.py`.
+
+| Split | Videos (day + night) | Frames | Annotated |
+|---|---|---|---|
+| train | 11 + 1 | 4678 | 4076 |
+| val | 3 + 1 | 1127 | 1027 |
+| test | 3 + 1 (`video-10`, `video-23`, `video-14`, night `video-24`) | 1391 | 1366 |
+
+Night: 3 videos, 581 frames (8.1%). Only **one** night video (139 frames) is in train,
+and only one (249 frames) is in test: any night-specific conclusion rests on single
+videos.
+
+### How `is_night` was set
+
+**Provenance unknown.** `is_night` was filled in by hand when the manifest was created,
+before any code in this repo; no script computes it and nobody recorded who set it or
+by what rule. TODO(team): write down who set it and how.
+
+Objective check (`zfpv.data.audit.color_stats`, notebook `01-audit-ak`, table
+`results/audit/color_stats.csv`): mean HSV brightness over 20 frames per video. The three
+`is_night` videos (8, 24, 25) are the three darkest (mean V 39-51; darkest day video 69),
+so the brightness check agrees with the manifest on all 20 videos.
+
+It does not settle modality: `video-9` is almost grey (mean S 1.8) but not dark, so most
+likely thermal or black-and-white, and brightness cannot tell day from night for thermal.
+`video-7` and `video-26` also have little colour. TODO(team): confirm by eye, then add a
+`modality` column (rgb / thermal) to the manifest.
 
 ## Personal data
 
-None. This is chemical measurement data with no connection to individuals.
-
-## Scraping
-
-Not applicable — this dataset was not scraped; it comes from a 1991 laboratory
-chemical analysis, redistributed via scikit-learn.
+None intentionally included (dataset card). If PII is found, report it to the dataset
+authors; it will be removed upstream.
 
 ## Known limitations and biases
 
-- Small (178 samples) — expect wide confidence intervals on any metric, and treat
-  single-run numbers with caution (see the "why one seed isn't enough" note in the
-  root README).
-- Mild class imbalance: 59 / 71 / 48 samples across the three cultivars.
-- All samples are from one region of Italy — a model trained on this data has not
-  seen wines from other regions, and nothing in the data or the model should be
-  assumed to generalize beyond similar cultivars.
+- Small and highly correlated: 20 videos, so effective sample size is closer to 20 than
+  to 7196. Expect wide confidence intervals; resample by video.
+- OSINT footage: re-compressed social-media video, unknown cameras, mixed resolutions
+  and aspect ratios; possible selection bias toward footage that was worth posting.
+- Night is under-represented (see Splits).
+- Objects are small (tens of pixels); exact size distribution: TODO, audit notebook.
 
 ## Ethical risks
 
-Low: this is chemical composition data with no personal, demographic, or otherwise
-sensitive information. The main risk is over-generalizing a model trained on 178
-samples from one region as if it said something universal about wine chemistry.
-
-## Version and checksum
-
-`data/raw/CHECKSUMS.txt` (committed to git, unlike the data itself) records the
-sha256 of the exact file this project was built and tested against. Regenerate and
-compare with `python scripts/download_data.py`.
-
----
-
-## If your project's data is too large or private for this pattern
-
-The pattern above — a small dataset, materialized on demand, checksum committed
-instead of the data — doesn't fit every project. If yours doesn't:
-
-- **Large but shareable**: Git LFS, DVC + cloud storage (S3/GCS/etc.), or Hugging Face
-  Datasets are all reasonable; pick based on whether your team already uses one of them.
-- **Already hosted elsewhere**: if the data already lives on Kaggle, just document the
-  dataset URL and the `kaggle datasets download <owner>/<dataset>` command (via the
-  `kaggle` CLI) instead of re-hosting it yourself.
-- **You need a DOI** (e.g. citing a specific dataset version in a paper or proposal):
-  Zenodo — same idea as the models/README.md Hugging Face pattern, but for data.
-- **Private (can't be public at all)**: keep it out of git entirely, document exactly
-  how to request access in this file, and note that CI/graders will need a documented
-  path to get it too.
-
-> [!warning]
-> `git rm big_or_private_file.csv` does **not** remove it from git history — the file
-> is still sitting in every commit before that removal, downloadable by anyone with
-> repo access. If a data file with real access restrictions is ever committed by
-> mistake, don't just delete it in a new commit: treat it like a leaked secret (see the
-> root README's note on that) and either rewrite history properly (`git filter-repo`)
-> before anyone else pulls, or accept it needs to be revoked/rotated at the source.
-> Deciding your storage approach *before* the first commit is much cheaper than fixing
-> this after the fact.
+The data shows active military threats. The intended use is protective (earlier
+detection of ambush drones threatening convoys, medevac and civilian transport). Risks:
+misuse for targeting (forbidden by the terms), and over-trust in a detector validated on
+very few videos: a miss can cost lives, too many false alarms erode crew trust.
